@@ -1,0 +1,28 @@
+//Pick up from where left off on laptop
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <time.h>
+
+int main() {
+
+	char c;
+	char word[5]; // declare character array (aka string)
+	
+	c = 'A';
+	
+	word[0] = 'h';
+	word[1] = 'o';
+	word[2] = 'm';
+	word[3] = 'e';
+	word[4] = '\0'; //Null terminating the array (aka "end of string")
+	
+	printf("\n\nword: %s", word);
+
+	/*        Memory Table
+	Address		Contents	Var
+	A000 C000	5			dice[0]
+	A000 C004	2			dice[1]
+	A000 C008	3			dice[2]
+	*/
+}

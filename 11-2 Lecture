@@ -1,0 +1,55 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <time.h>
+
+struct Dice {
+	int num1;
+	int num2;
+};
+typedef struct Dice Dice;
+
+void dice_print(Dice dice, char label[]) {
+	printf("\nDice struct: %s", label);
+	printf("\n   num1: %d", Dice.num1);
+	printf("\n   num2: %d", Dice.num2);
+}
+
+void dice_set_rand(Dice *ptr) {
+	ptr->num1 = 1 + rand() % 6;
+	ptr->num2 = 1 + rand() % 6;
+}
+
+int dice_sum(Dice dice) {
+	int sum;
+	
+	sum = dice.num1 + dice.num2;
+	
+	return sum;
+}
+
+int main() {
+	srand(time(NULL));
+	
+	Dice myDice;
+	
+	/*      Memory Table
+	-----------------------------------
+	Address     Contents     Variable
+	-----------------------------------
+	A000 0000     rand		num1
+	*/
+	
+	dice_set_rand(&myDice);
+	dice_print(myDice, "myDice");
+	
+	Dice *yourDice;    // iTunes
+	
+	yourDice = (Dice *)malloc(sizeof(Dice));
+	
+	dice_set_rand(yourDice);
+	
+	dice_print(*yourDice, "*yourDice");
+}

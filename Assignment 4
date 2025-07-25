@@ -1,0 +1,191 @@
+ofApp.h
+--------------------------------------------------------------
+#pragma once
+
+#include "ofMain.h"
+
+#define N_MAX 20000
+
+class ofApp : public ofBaseApp {
+	public:
+		void setup();
+		void update();
+		void draw();
+		
+		
+		//Variables that will be used
+		int n, nGrid_x, nGrid_y;
+		float xmin, xmax, ymin, ymax, step;
+		float x[N_MAX];
+		float y[N_MAX];
+		float xPix[N_MAX];
+		float yPix[N_MAX];
+		float step_grid_x, step_grid_y;
+		float xGrid[N_MAX];
+		float yGrid[N_MAX];
+		float xPixGrid[N_MAX];
+		float yPixGrid[N_MAX];
+		
+		void keyPressed(int key);
+		void keyReleased(int key);
+		void mouseMoved(int x, int y);
+		void mouseDragged(int x, int y, int button);
+		void mousePressed(int x, int y, int button);
+		void mouseReleased(int x, int y, int button);
+		void mouseEntered(int x, int y);
+		void mouseExited(int x, int y);
+		void windowResized(int w, int h);
+		void dragEvent(ofDragInfo dragInfo);
+		void gotMessage(ofMessage msg);
+--------------------------------------------------------------
+
+
+ofApp.cpp
+**************************************************************
+#include "ofApp.h"
+
+// API
+int getSamples(float xmin, float xmax, float step, float x[]);
+void getDampedCosSamples(int n, float x[], float y[], float alpha, float w);
+void getGaussianSamples(int n, float x[], float y[], float alpha, float mu);
+void getSincSamples(int n, float x[], float y[], float alpha);
+float grid(float in, float inMin, float inMax, float outMin, float outMax);
+void map_vec(int n, float in[], float out[], float inMin, float inMax, float outMin, float outMax);
+void printArray(int n, float x[], char label[]);
+
+
+
+// Functions
+int getSamples(float xmin, float xmax, float step, float x[]) {
+	int n;
+	
+	n = (xmax - xmin) / step + 1;
+	
+	for (int i = 0; i <n; i++) {
+		x[i] = xmin + i * step;
+	}
+}
+
+void getDampedCosSamples(int n, float x[], float y[], float alpha, float w) {
+	// Damped Sinusoid: y = e^(-[alpha]x) cos([greek w]x)
+	for (int i = 0; i < n; i++) {
+		y[i] = exp(-alpha * x[i]) * cos(w * x[i];
+	}
+
+void getGaussianSamples(int n, float x[], float y[], float alpha, float mu) {
+	// Gaussian Function: y = e^(-[alpha](x-[mu])^2)
+	for (int i = 0; i < n; i++) {
+		y[i] = exp(-alpha * (x[n] - mu) * (x[n] - mu);
+	}
+
+void getSincSamples(int n, float x[], float y[], float alpha) {
+	// Sinc Function: y = sin([alpha][pi]x) / ([alpha][pi]x)
+	float pi = 3.14159265;
+	
+	for (int i = 0; i < n; i++) {
+		y[i] = (sin(alpha * pi * x[i]) / (alpha * pi * x[i]));
+	}
+
+float grid(float in, float inMin, float inMax, float outMin, float outMax) {
+	// Creating grid
+	float m, b, out;
+	
+	m = (outMax - outMin) / (inMax - inMin);
+	b = outMax - m * inMax;
+	
+	out = m * in + b;
+	
+	return out;
+}
+
+void map_vec(int n, float in[], float out[], float inMin, float inMax, float outMin, float outMax) {
+	for (int i = 0; i < n; i++) {
+		out[i] = grid(in[i], inMin, inMax, outMin, outMax);
+	}
+}
+
+void printArray(int n, float x[], char label[]) {
+	printf("\n%s: ", label);
+	
+	for (int i = 0; i < n; i++) {
+		printf("%.2f ", x[i]);
+	}
+}
+
+
+
+void ofApp::setup() {
+	int n = n;
+	
+	n = getSamples(xmin, xmax, step, x);
+	// Variable setup
+	xmin = 0;
+	xmax = 1000;
+	step = 100;
+	ymin = 0;
+	ymax = 800;
+	
+	// Window setup
+	ofSetFrameRate(30);
+}
+
+void ofApp::update() {
+
+}
+
+void ofApp::draw() {
+	ofSetBackgroundColor(255, 255, 255);
+	
+	for (int i = 0; i < n; i++) {
+		ofSetBackgroundAuto(false);
+		ofSetColor(0, 0, 255);
+		ofSetLineWidth(10.0f);
+		ofFill();
+		ofDrawCircle(xPix[i], yPix[i], 1);
+	}
+}
+
+void ofApp::keyPressed(int key) {
+
+}
+
+void ofApp::keyReleased(int key) {
+
+}
+
+void ofApp::mouseMoved() {
+
+}
+
+void ofApp::mouseDragged(int x, int y, int button) {
+
+}
+
+void ofApp::mousePressed(int x, int y, int button) {
+
+}
+
+void ofApp::mouseReleased(int x, int y, int button) {
+
+}
+
+void ofApp::mouseEntered(int x, int y) {
+
+}
+
+void ofApp::mouseExited(int x, int y) {
+
+}
+
+void ofApp::windowResized(int w, int h) {
+
+}
+
+void ofApp::gotMessage(ofMessage msg) {
+
+}
+
+void ofApp::dragEvent(ofDragInfo dragInfo) {
+
+}
+**************************************************************

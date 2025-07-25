@@ -1,0 +1,170 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <time.h>
+
+struct Point {
+    // Don't put variables in same line. Not done in professional world
+    float x;
+    float y;
+};
+
+// Type Definitions
+typedef struct Point Point;
+
+// API
+void point_print(Point point, char label[]);
+void point_set(Point *ptr, float x_in, float y_in);
+Point * point_new(float x_in, float y_in);
+Point point_midpoint(Point p, Point q);
+
+// Function Definitions
+void point_print(Point point, char label[]) {
+    printf("\nstruct Point: %s", label);
+    printf("\n        x: %f", point.x);
+    printf("\n        y: %f", point.y);
+    
+}
+void point_set(Point *ptr, float x_in, float y_in) {
+    ptr->x = x_in;
+    ptr->y = y_in;
+}
+
+Point * point_new(float x_in, float y_in) {
+	Point * ptr;   //itunes;    ptr->x ... crash!
+	
+	ptr = (Point*)malloc(sizeof(Point));'
+	
+	ptr->x = x_in;
+	ptr->y = y_in;
+	
+	return(ptr);
+}
+
+Point point_midpoint(Point p, Point q) {
+	Point point;
+	
+	point.x = 0.5 * (p.x + q.x);
+	point.y = 0.5 * (p.y + q.y);
+	
+	return (point);
+}
+
+int main() {
+    srand(time(NULL));
+    // "Complex" in notes
+    
+	Point p;
+	
+	point_set(&p, 10.0, 20.0);
+	point_print(p, "p");
+	
+	Point *ptr;
+	
+	ptr = point_new(50.0, 60.0);
+	point_print(*ptr, "*ptr");
+	
+	Point point[10];
+	
+	char label[100];
+	
+	for (int i = 0; i < 10; i++) {
+		float x = (float) rand() / RAND_MAX;
+		float y = (float) rand() / RAND_MAX;
+		
+		point_set(&points[i], x, y);
+	}
+	
+	for (int i = 0; i < 10; i++) {
+		sprintf(label, "points[%d]", i);
+		point_print(points[i], label);
+	}
+
+	Point a, b, sum;
+	
+	point_set(&a, 10.0, 20.0);
+	point_set(&b, 0.0, 40.0);
+	
+	sum = point_midpoint(a, b);
+	
+	point_print(sum, "sum");
+	
+    int n;   // Regular variable
+    
+    Point myPoint;
+    
+    myPoint.x = 10;
+    myPoint.y = 50;
+    
+    printf("\n\nPoint struct: myPoint");
+    printf("\n        x: %f", myPoint.x);
+    printf("\n        y: %f", myPoint.y);
+    
+    Point *ptr;    // itunes problem
+    
+    ptr = &myPoint;
+    ptr->x = 70;
+    
+    printf("\n\n");
+}
+
+
+/*			Quiz
+void circle_print(Circle c, char label[]) {
+	printf("\n\nCircle struct: %s", label);
+	printf("\n			x: %d", c.x);
+	
+	
+	
+}
+
+void circle_set_rand(Circle *ptr, int xmin, int xmax, int ymin, int ymax, int rmin, int rmax) {
+	ptr->x = xmin + rand() % (xmax - xmin +1);
+	ptr->y = xmin + rand() % (xmax - xmin +1);
+	ptr->r = rmin + rand() % (rmax - rmin +1);
+}
+
+int intersects(Circle p, Circle q) {
+	float dist = getDistance(p.x, p.y, q.x, q.y);
+	// Use distance formula
+	
+	if (dist < p.r + q.r) {
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+int getNumIntersects(int n, Circle circlers[], Circle
+	int count;
+	
+	count = 0;
+	for (int i = 0; i < n; i++) {
+		coutn = count + intersects(circles[i], c);
+	}
+}
+
+setup() {
+	// Background
+	Circle c;
+	
+	circle_set_rand(&myCircles[0], 0, 1000, 0, 1000, 20 );
+	
+	numCircles = 1;
+	
+	for (int i = 1; i < 1000; i++) {
+		circle_set_rand(&c, 0, 1000, 0, 1000, 20, 100);
+		
+		numIntersects = getNumIntersects(numCircles, myCircles, c);
+		
+		if (numIntesects == 0) {
+			myCircles[numCircles] = c;
+			
+			numCircles++;
+		}
+	}
+	
+
+} */

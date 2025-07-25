@@ -1,0 +1,80 @@
+#include <stdio.h>
+
+int main() {
+	// OpenFrameworks Classes
+	
+	ofColor::::
+	
+	setup::
+	 +r, +g, +b: unsigned char  <-  methods
+	 
+	 No-arg contrstructor: a constructor that has no arguments
+	 ex. ofColor myColor;
+	 
+	 3-arg constructor: a constructor that has 3 arguments
+	 ex. ofColor yourColor(255, 0, 0);
+	
+	cout << "\n\nofColor object: myColor"; <- don't need %d, %f..... smart enough to figure it out, can also use printf
+	
+	cout << "\n      r: " << myColor.r;
+	cout << "\n      g: " << myColor.g;
+	cout << "\n      b: " << myColor.b;
+	
+	myColor.set(255, 0, 0);
+	
+	cout << "\n      r: " << myColor.r;
+	cout << "\n      g: " << myColor.g;
+	cout << "\n      b: " << myColor.b;
+	
+	
+	
+	draw::
+	ofSetColor(myColor.r, myColor.g, myColor.b);
+	ofDrawCircle(200, 200, 50);
+	
+	// Declare "myColor" in .h file
+	
+	
+	
+	.h
+	
+	// Member Variables <- What you add
+	
+	// Member Functions <- Functions added and what's given
+	
+	
+	
+	
+	
+	
+	
+	ofRectangle::::
+	
+	draw::
+	ofRectangle r(300, 300, 100, 100);
+	
+	ofPoint myPoint;
+	
+	myPoint = r.getCenter;
+	
+	print_rectangle(r,"r");
+	print_point(myPoint, "myPoint");
+	
+	float f;
+	
+	
+	
+	void print_rectangle(ofRectangle myR, string label) {
+		cout << "\nofRectangle object: " << label;
+		cout << "\n      x: " << myR.x;
+		cout << "\n      y: " << myR.y;
+		cout << "\n      width: " << myR.width;
+		cout << "\n      height: " << myR.height;
+	}
+	
+	void print_point(ofPoint myPoint, string label) {
+		cout << "\nofPoint object: " << label;
+		cout << "\n      x: " << myPoint.x;
+		cout << "\n      y: " << myPoint.y;
+		}
+}

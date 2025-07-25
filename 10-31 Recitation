@@ -1,0 +1,94 @@
+//ofApp.h
+//---------------------------------------
+// structs
+	struct Color {
+		int r;
+		int g;
+		int b;
+	};
+	typedef struct Color Color;
+	
+	struct Rectangle {
+		int x;
+		int y;
+		int l;
+		int w;
+		Color c;
+	};
+	typedef struct Rectangle Rectangle;
+	
+// variables
+	Rectangle *r;
+	Rectangle rc;
+	int numRectangles;
+	
+// functions
+	void setRandRect(Rectangle *r, int xmin, int xmax, int ymin, int ymax, int lmin, int lmax, int wmin, int wmax);
+	int rectIntersect(Rectangle r1, Rectangle r2);
+	int getNumIntersect(int n, Rectangle *r, Rectangle rc);
+//---------------------------------------
+
+//ofApp.cpp
+//---------------------------------------
+void ofApp::setRandRect(Rectangle *r, int xmin, int xmax, int ymin, int ymax, int lmin, int lmax, int wmin, int wmax) {
+	r->x = xmin + rand() % (xmax - xmin + 1);
+	r->y = ymin + rand() % (ymax - ymin + 1);
+	r->l = lmin + rand() % (lmax - lmin + 1);
+	r->w = wmin + rand() % (wmax - wmin + 1);
+	
+	r->c.r = rand() % 256;
+	r->c.g = rand() % 256;
+	r->c.b = rand() % 256;
+}
+
+void ofApp::rectIntersect(Rectangle r1, Rectangle r2) {
+	int intersect = 1;
+	
+	if (r2.x > r1.x + r1.l) {
+		intersect = 0;
+	} else if (r1.x > r2.x + r2.l) {
+		intersect = 0;
+	} else if (r2.y > r1.y + r1.w) {
+		intersect = 0;
+	} else if (r1.y > r2.y + r2.w) {
+		intersect = 0;
+	}
+	
+	return intersect;
+}
+
+void ofApp::getNumIntersect(int n, Rectangle *r, Rectangle rc) {
+	int count = 0;
+	
+	for (int i = 0; i < n; i++) {
+		count = count + rectIntersect(rc, r[i]);
+	}
+	
+	return count;
+}
+
+void ofApp::setup() {
+	r = (Rectangle*)malloc(10000 * sizeof(Rectangle));
+	setRandRect(&r[0], 0, 1000, 0, 1000, 5, 50, 5, 20);
+	numRectangles = 1;
+}
+
+void ofApp::update() {
+	setRandRect(&rc, 0, 1000, 0, 1000, 5, 50, 5, 20);
+	int nIntersect = getNumIntersects(numRectangles, r, rc);
+	
+	if (nIntersect == 0) {
+		r[numRectangles] = rc;
+		numRectangles++;
+	}
+}
+
+void ofApp::draw() {
+	ofFill();
+	
+	for (int i = 0; i < n; i++) {
+		ofSetColor(r[i].c.r, r[i].c.g, r[i].c.b);
+		ofDrawRectangle(r[i].x, r[i].y, r[i].l, r[i].w);
+	}
+}
+//---------------------------------------
